@@ -29,7 +29,7 @@ if msg.media then
     local pm = redis:get(hash)
  if redis:get("bot:addedmsg") == "on" then
     if not pm then 
-	 return reply_msg(msg.id,'ادی گلم پیوی', ok_cb, false)
+	 return reply_msg(msg.id,':-| :-(', ok_cb, false)
 	 else
 	  return reply_msg(msg.id,pm, ok_cb, false)
 	  end
@@ -126,12 +126,15 @@ local sgps = redis:smembers("selfbot:supergroups")
 local users = redis:smembers("selfbot:users")
   for i=1, #gps do
     send_large_msg(gps[i],text,ok_cb,false)
+	sleep(5)
   end
   for i=1, #sgps do
     send_large_msg(sgps[i],text,ok_cb,false)
+	sleep(5)
   end
   for i=1, #users do
     send_large_msg(users[i],text,ok_cb,false)
+	sleep(5)
   end
 end
 
@@ -139,6 +142,7 @@ function broad_castpv(text)
 local users = redis:smembers("selfbot:users")
 for i=1, #users do
     send_large_msg(users[i],text,ok_cb,false)
+	sleep(5)
   end
 end
 
@@ -146,12 +150,14 @@ function broad_castgp(text)
 local gps = redis:smembers("selfbot:groups")
 for i=1, #gps do
     send_large_msg(gps[i],text,ok_cb,false)
+	sleep(5)
   end
 end
 function broad_castsgp(text)
 local sgps = redis:smembers("selfbot:supergroups")
  for i=1, #sgps do
     send_large_msg(sgps[i],text,ok_cb,false)
+	sleep(5)
   end
 end
 
@@ -458,15 +464,15 @@ end
   local users = redis:smembers("selfbot:users")
   for i=1, #sgps do
     fwd_msg(sgps[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(5)
   end
   for i=1, #gps do
     fwd_msg(gps[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(5)
   end
   for i=1, #users do
     fwd_msg(users[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(5)
   end
    redis:setex("timefwdall:"..msg.to.id,1800,true)
   return "به همه سوپرگروه ها گروه ها و پیوی ها ارسال شد"
@@ -479,7 +485,7 @@ end
   local users = redis:smembers("selfbot:users")
   for i=1, #users do
     fwd_msg(users[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(0.05)
   end
    redis:setex("timefwdpv:"..msg.to.id,1800,true)
   return "به تمام پیوی ها ارسال شد"
@@ -492,7 +498,7 @@ end
   local gps = redis:smembers("selfbot:groups")
   for i=1, #gps do
     fwd_msg(gps[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(0.05)
   end
     redis:setex("timefwdgp:"..msg.to.id,1800,true)
   return "به همه گروه ها ارسال شد"
@@ -505,7 +511,7 @@ end
     local sgps = redis:smembers("selfbot:supergroups")
 	for i=1, #sgps do
     fwd_msg(sgps[i],id,ok_cb,false)
-	sleep(0.01)
+	sleep(0.05)
   end
     redis:setex("timefwdsgp:"..msg.to.id,1800,true)
    return "به همه سوپر گروه ها ارسال شد"
